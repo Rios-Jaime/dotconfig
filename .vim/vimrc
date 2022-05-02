@@ -1,4 +1,4 @@
-call pathogen#runtime_append_all_bundles()
+call pathogen#infect()
 call pathogen#helptags()
 
 set nocompatible              " be iMproved, required
@@ -36,7 +36,5 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 set smarttab
-packadd! dracula
-colorscheme dracula 
 
 syntax on
