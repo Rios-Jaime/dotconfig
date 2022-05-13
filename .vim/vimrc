@@ -16,6 +16,8 @@ Plugin 'VundleVim/Vundle.vim'
 " Keep Plugin commands between vundle#begin/end.
 Plugin 'dracula/vim', { 'name': 'dracula' }
 Plugin 'itspriddle/vim-marked', {'name': 'marked'}
+Plugin 'andviro/flake8-vim'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
