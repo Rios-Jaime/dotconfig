@@ -1,7 +1,7 @@
 call pathogen#infect()
 call pathogen#helptags()
 
-set nocompatible              " be iMproved, required
+set nocompatible              " required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
@@ -17,7 +17,10 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'dracula/vim', { 'name': 'dracula' }
 Plugin 'itspriddle/vim-marked', {'name': 'marked'}
 Plugin 'andviro/flake8-vim'
-
+Plugin 'https://github.com/tpope/vim-fugitive'
+Plugin 'scrooloose/nerdtree'
+Plugin 'bling/vim-airline'
+Plugin 'dense-analysis/ale'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
