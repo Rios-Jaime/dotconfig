@@ -21,6 +21,7 @@ Plugin 'https://github.com/tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 Plugin 'bling/vim-airline'
 Plugin 'dense-analysis/ale'
+Plugin 'ambv/black'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
