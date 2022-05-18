@@ -6,9 +6,8 @@ filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
+
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
@@ -24,24 +23,57 @@ Plugin 'dense-analysis/ale'
 Plugin 'ambv/black'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
+
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
+
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+
+" colors
 colorscheme dracula
 
+" general settings
 set smartindent
 set tabstop=4
 set shiftwidth=4
 set expandtab
 set smarttab
-
 syntax on
+
+let mapleader = "_"
+
+" ale settings
+let g:ale_lint_on_enter = 0         " Disable linting when opening file
+let g:ale_lint_on_save = 1          " Linting on save
+let g:ale_sign_error = '●'          " Making errors look nicer
+let g:ale_sign_warning = '.'
+
+nmap <silent> <C-e> <Plug>(ale_next_wrap)   " Control-e to move to next error
+
+function! LinterStatus() abort              " Showing # of errrors / warnings
+    let l:counts = ale#statusline#Count(bufnr(''))
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+    return l:counts.total == 0 ? 'OK' : printf(
+        \   '%d⨉ %d⚠ ',
+        \   all_non_errors,
+        \   all_errors
+        \)
+endfunction
+set statusline+=%=
+set statusline+=\ %{LinterStatus()}
+
+" nerdtree settings
+let NERDTreeAutoDeleteBuffer = 1        " Deleting files
+let NERDTreeMinimalUI = 1               " make tree look nicer
+let NERDTreeDirArrows = 1
+
+" Start NERDTree, unless a file or session is specified, eg. vim -S session_file.vim.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && v:this_session == '' | NERDTree | endif
+
+nnoremap <Leader>f :NERDTreeToggle<Enter>    
+nnoremap <silent> <Leader>v :NERDTreeFind<CR>
+
+" Close the tab if NERDTree is the only window remaining in it.
+autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
