@@ -40,7 +40,7 @@ set expandtab
 set smarttab
 syntax on
 
-let mapleader = "_"
+let mapleader = ","
 
 " ale settings
 let g:ale_lint_on_enter = 0         " Disable linting when opening file
