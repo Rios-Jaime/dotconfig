@@ -21,6 +21,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'bling/vim-airline'
 Plugin 'dense-analysis/ale'
 Plugin 'ambv/black'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
@@ -33,12 +34,26 @@ filetype plugin indent on    " required
 colorscheme dracula
 
 " general settings
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set autoindent
 set smartindent
-set tabstop=4
-set shiftwidth=4
-set expandtab
 set smarttab
+set expandtab
+set fileformat=unix
+set encoding=UTF-8
+set cursorline
+set number
+set relativenumber
+set scrolloff=8
+set signcolumn=yes
 syntax on
+
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
 
 let mapleader = ","
 
@@ -47,7 +62,9 @@ let g:ale_lint_on_enter = 0         " Disable linting when opening file
 let g:ale_lint_on_save = 1          " Linting on save
 let g:ale_sign_error = '●'          " Making errors look nicer
 let g:ale_sign_warning = '.'
-
+let g:ale_linters = {'python':['flake8-vim']}
+let g:ale_fixers = {'python': ['black']}
+let g:ale_fix_on_save = 1
 nmap <silent> <C-e> <Plug>(ale_next_wrap)   " Control-e to move to next error
 
 function! LinterStatus() abort              " Showing # of errrors / warnings
@@ -67,6 +84,10 @@ set statusline+=\ %{LinterStatus()}
 let NERDTreeAutoDeleteBuffer = 1        " Deleting files
 let NERDTreeMinimalUI = 1               " make tree look nicer
 let NERDTreeDirArrows = 1
+let NERDTreeShowHidden=1
+let NERDTreeRespectWildIgnore=1
+set wildignore+=*.DS_Store,*.min.*
+autocmd BufWinEnter * silent NERDTreeMirror
 
 " Start NERDTree, unless a file or session is specified, eg. vim -S session_file.vim.
 autocmd StdinReadPre * let s:std_in=1
@@ -77,3 +98,4 @@ nnoremap <silent> <Leader>v :NERDTreeFind<CR>
 
 " Close the tab if NERDTree is the only window remaining in it.
 autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
