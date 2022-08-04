@@ -4,6 +4,7 @@ This repo has my config files for use in other machines
 
 How to use:
 1. Clone repo
+2. symlink .vim/ and .vimrc to HOME directory
 ```
     ln -s /path/to/original /path/to/link
 ```
