@@ -5,7 +5,7 @@ This repo has my config files for use in other machines
 How to use:
 1. Clone repo
 ```
-    n -s /path/to/original /path/to/link
+    ln -s /path/to/original /path/to/link
 ```
 3. add submodules
 ```
