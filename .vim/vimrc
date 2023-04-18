@@ -1,12 +1,12 @@
 call pathogen#infect()
 call pathogen#helptags()
 
-set nocompatible              " required
-filetype off                  " required
+set nocompatible    " required
+filetype on         " required
+filetype plugin on  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
-
 call vundle#begin()
 
 " let Vundle manage Vundle, required
@@ -22,6 +22,8 @@ Plugin 'bling/vim-airline'
 Plugin 'dense-analysis/ale'
 Plugin 'ambv/black'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'github/copilot.vim'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
@@ -50,7 +52,7 @@ set scrolloff=8
 set signcolumn=yes
 syntax on
 
-au BufNewFile,BufRead *.py
+au BufNewFile, BufRead *.py
     \ set tabstop=4 |
     \ set softtabstop=4 |
     \ set shiftwidth=4 |
@@ -66,6 +68,8 @@ let g:ale_linters = {'python':['flake8-vim']}
 let g:ale_fixers = {'python': ['black']}
 let g:ale_fix_on_save = 1
 nmap <silent> <C-e> <Plug>(ale_next_wrap)   " Control-e to move to next error
+
+autocmd BufWritePre *.py execute ':Black'
 
 function! LinterStatus() abort              " Showing # of errrors / warnings
     let l:counts = ale#statusline#Count(bufnr(''))
