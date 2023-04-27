@@ -23,6 +23,8 @@ Plugin 'dense-analysis/ale'
 Plugin 'ambv/black'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'github/copilot.vim'
+Plugin 'jupyter-vim/jupyter-vim'
+Plugin 'jpalardy/vim-slime'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -69,7 +71,7 @@ let g:ale_fixers = {'python': ['black']}
 let g:ale_fix_on_save = 1
 nmap <silent> <C-e> <Plug>(ale_next_wrap)   " Control-e to move to next error
 
-autocmd BufWritePre *.py execute ':Black'
+autocmd BufWritePre *.py execute ':black'
 
 function! LinterStatus() abort              " Showing # of errrors / warnings
     let l:counts = ale#statusline#Count(bufnr(''))
@@ -103,3 +105,8 @@ nnoremap <silent> <Leader>v :NERDTreeFind<CR>
 " Close the tab if NERDTree is the only window remaining in it.
 autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
+" vim-slime settings.
+
+let g:slime_target = "vimterminal"
+let g:slime_vimterminal_config = {"term_finish": "close"}
+let g:slime_python_ipython = 1
